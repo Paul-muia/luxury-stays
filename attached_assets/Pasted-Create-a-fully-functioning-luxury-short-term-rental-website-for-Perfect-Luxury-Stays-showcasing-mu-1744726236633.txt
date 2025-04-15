@@ -1,0 +1,103 @@
+Create a fully-functioning, luxury short-term rental website for Perfect Luxury Stays, showcasing multiple high-end properties (40+), primarily located in Nairobi. The design should be sleek, modern, mobile-friendly, and reflect the exclusive, luxurious nature of the brand. Here’s what I want:
+
+✅ CORE FEATURES:
+Homepage:
+
+Beautiful hero section with a background image
+
+Featured property highlights (clickable)
+
+Clean navigation and modern UI
+
+Property Listings Page:
+
+Grid layout of all properties (40+ total)
+
+Users can click the entire property card/image to view more
+
+Full booking functionality or “Contact Host” CTA
+
+Built-in search, filters (location, amenities, price)
+
+Individual Property Page:
+
+Display local images (from /images/properties/) — not from Unsplash
+
+Full-screen Airbnb-style image gallery with:
+
+Click-to-open lightbox
+
+Swipe or arrow navigation for carousel
+
+Close button to exit
+
+Optional image captions like “Balcony View”, “Living Room”
+
+Smooth & mobile responsive behavior
+
+Expandable amenities section showing:
+
+High-speed Wi-Fi
+
+Fully equipped kitchen
+
+In-unit washer/dryer
+
+Air conditioning
+
+City view / balcony / rooftop access
+
+Free parking
+
+Smart TV / Netflix
+
+Coffee machine
+
+Workspace or desk area
+
+24/7 security or doorman
+
+Keyless/self check-in
+
+Pool / gym / spa access (if applicable)
+
+Daily cleaning
+
+Essentials (towels, sheets, soap, etc.)
+
+...and more
+
+“Meet your Host” section with profile photo + contact button
+
+Location map
+
+Reviews section
+
+Similar Properties carousel
+
+📄 Other Pages:
+About Page with our personal brand story
+
+Contact Page with:
+
+Phone: 0727283836 (also WhatsApp)
+
+Email: paulmutukumuia@gmail.com
+
+Loyalty & Referral Program section (optional page or footer feature)
+
+⚙️ Tech Requirements:
+Payment integration (e.g., Stripe or similar)
+
+SEO optimization (meta tags, schema, alt tags, fast loading)
+
+Scalable code structure for future growth
+
+Responsive layout for both desktop & mobile
+
+📁 Assets:
+All 40+ listings will have a lot of local images stored inside /images/properties/<property-name>/
+
+Avoid using external image sources like Unsplash
+
+Make the site user-centric, easy to navigate, visually luxurious, and technically optimized — just like Airbnb, but branded as Perfect Luxury Stays.
