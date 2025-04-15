@@ -14,12 +14,12 @@ export interface IStorage {
   getSimilarProperties(propertyId: number): Property[];
   
   // Message operations
-  createMessage(message: Omit<InsertMessage, "createdAt">): Message;
+  createMessage(message: Omit<InsertMessage, "createdAt">): Promise<Message>;
   
   // Booking operations
-  createBooking(booking: Omit<InsertBooking, "status" | "createdAt">): Booking;
-  getBookingsByUserId(userId: number): Booking[];
-  getBookingsByPropertyId(propertyId: number): Booking[];
+  createBooking(booking: Omit<InsertBooking, "status" | "createdAt">): Promise<Booking>;
+  getBookingsByUserId(userId: number): Promise<Booking[]>;
+  getBookingsByPropertyId(propertyId: number): Promise<Booking[]>;
 }
 
 export class MemStorage implements IStorage {
@@ -110,7 +110,7 @@ export class MemStorage implements IStorage {
   }
 
   // Message operations
-  createMessage(messageData: Omit<InsertMessage, "createdAt">): Message {
+  async createMessage(messageData: Omit<InsertMessage, "createdAt">): Promise<Message> {
     const id = this.currentMessageId++;
     // Create a new object with the correct structure for Message type
     const message: Message = {
@@ -127,7 +127,7 @@ export class MemStorage implements IStorage {
   }
 
   // Booking operations
-  createBooking(bookingData: Omit<InsertBooking, "status" | "createdAt">): Booking {
+  async createBooking(bookingData: Omit<InsertBooking, "status" | "createdAt">): Promise<Booking> {
     const id = this.currentBookingId++;
     const booking: Booking = {
       ...bookingData,
@@ -139,12 +139,12 @@ export class MemStorage implements IStorage {
     return booking;
   }
 
-  getBookingsByUserId(userId: number): Booking[] {
+  async getBookingsByUserId(userId: number): Promise<Booking[]> {
     return Array.from(this.bookings.values())
       .filter(booking => booking.userId === userId);
   }
 
-  getBookingsByPropertyId(propertyId: number): Booking[] {
+  async getBookingsByPropertyId(propertyId: number): Promise<Booking[]> {
     return Array.from(this.bookings.values())
       .filter(booking => booking.propertyId === propertyId);
   }

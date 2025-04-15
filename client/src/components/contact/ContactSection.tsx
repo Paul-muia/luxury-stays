@@ -28,7 +28,7 @@ const ContactSection = () => {
       toast({
         title: "Message Sent",
         description: "Thank you for contacting us. We'll get back to you soon!",
-        variant: "success",
+        variant: "default",
       });
       setFormData({
         name: '',
