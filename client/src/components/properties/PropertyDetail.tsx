@@ -109,9 +109,9 @@ const PropertyDetail = ({ propertyId }: PropertyDetailProps) => {
               <button className="bg-primary hover:bg-primary-light text-white px-4 py-2 rounded-md font-medium transition">
                 Book Now
               </button>
-              <button className="border border-primary text-primary hover:bg-primary hover:text-white px-4 py-2 rounded-md font-medium transition">
-                Contact Host
-              </button>
+              <a href="https://wa.me/254727283836" target="_blank" rel="noopener noreferrer" className="border border-primary text-primary hover:bg-primary hover:text-white px-4 py-2 rounded-md font-medium transition flex items-center">
+                <i className="fab fa-whatsapp mr-2"></i> Contact Host
+              </a>
             </div>
           </div>
         </div>
@@ -198,19 +198,15 @@ const PropertyDetail = ({ propertyId }: PropertyDetailProps) => {
                   <span>{formatCurrency(property.price * 5)}</span>
                 </div>
                 <div className="flex justify-between mb-2">
-                  <span>Cleaning fee</span>
-                  <span>$80</span>
-                </div>
-                <div className="flex justify-between mb-2">
                   <span>Service fee</span>
-                  <span>$85</span>
+                  <span>{formatCurrency(85)}</span>
                 </div>
               </div>
               
               <div className="border-t border-neutral pt-4 mb-6">
                 <div className="flex justify-between font-bold">
                   <span>Total</span>
-                  <span>{formatCurrency(property.price * 5 + 80 + 85)}</span>
+                  <span>{formatCurrency(property.price * 5 + 85)}</span>
                 </div>
               </div>
               
@@ -262,11 +258,14 @@ const PropertyDetail = ({ propertyId }: PropertyDetailProps) => {
                 </div>
               </div>
               
-              <Link href="/contact">
-                <a className="block w-full bg-white border border-primary text-primary hover:bg-primary hover:text-white py-2 rounded-md font-medium transition text-center">
-                  Contact {property.host.name}
+              <div className="flex space-x-2">
+                <a href="tel:+254727283836" className="flex-1 bg-white border border-primary text-primary hover:bg-primary hover:text-white py-2 rounded-md font-medium transition text-center flex items-center justify-center">
+                  <i className="fas fa-phone mr-2"></i> Call
                 </a>
-              </Link>
+                <a href="https://wa.me/254727283836" target="_blank" rel="noopener noreferrer" className="flex-1 bg-white border border-green-600 text-green-600 hover:bg-green-600 hover:text-white py-2 rounded-md font-medium transition text-center flex items-center justify-center">
+                  <i className="fab fa-whatsapp mr-2"></i> WhatsApp
+                </a>
+              </div>
             </div>
           </div>
         </div>

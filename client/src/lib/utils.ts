@@ -7,9 +7,9 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function formatCurrency(amount: number): string {
-  return new Intl.NumberFormat('en-US', {
+  return new Intl.NumberFormat('en-KE', {
     style: 'currency',
-    currency: 'USD',
+    currency: 'KES',
     minimumFractionDigits: 0,
     maximumFractionDigits: 0
   }).format(amount);
@@ -27,10 +27,9 @@ export function formatDate(dateString: string): string {
 export function calculateTotalPrice(
   pricePerNight: number,
   nights: number,
-  cleaningFee: number = 80,
   serviceFee: number = 85
 ): number {
-  return pricePerNight * nights + cleaningFee + serviceFee;
+  return pricePerNight * nights + serviceFee;
 }
 
 export function generateRatingStars(rating: number): { full: number; half: number; empty: number } {
