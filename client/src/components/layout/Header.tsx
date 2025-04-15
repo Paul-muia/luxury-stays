@@ -50,8 +50,12 @@ const Header = () => {
         </div>
         
         <div className="flex items-center space-x-4">
-          <a href="#login" className="hidden md:block text-primary hover:text-secondary transition font-medium">Login</a>
-          <a href="#signup" className="hidden md:block bg-primary hover:bg-primary-light text-white py-2 px-4 rounded-md transition font-medium">Sign Up</a>
+          <a href="tel:+254727283836" className="hidden md:flex text-primary hover:text-secondary transition font-medium items-center">
+            <i className="fas fa-phone mr-2"></i> Call Us
+          </a>
+          <a href="https://wa.me/254727283836" target="_blank" rel="noopener noreferrer" className="hidden md:flex bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-md transition font-medium items-center">
+            <i className="fab fa-whatsapp mr-2"></i> WhatsApp
+          </a>
           <button 
             className="md:hidden text-neutral-dark focus:outline-none" 
             onClick={toggleMobileMenu}
@@ -98,8 +102,12 @@ const Header = () => {
             </a>
           </Link>
           <div className="flex space-x-4 pt-2">
-            <a href="#login" className="text-primary hover:text-secondary transition font-medium">Login</a>
-            <a href="#signup" className="bg-primary hover:bg-primary-light text-white py-2 px-4 rounded-md transition font-medium">Sign Up</a>
+            <a href="tel:+254727283836" className="flex items-center text-primary hover:text-secondary transition font-medium">
+              <i className="fas fa-phone mr-2"></i> Call Us
+            </a>
+            <a href="https://wa.me/254727283836" target="_blank" rel="noopener noreferrer" className="flex items-center bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-md transition font-medium">
+              <i className="fab fa-whatsapp mr-2"></i> WhatsApp
+            </a>
           </div>
         </div>
       </div>

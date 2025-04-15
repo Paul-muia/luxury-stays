@@ -152,8 +152,11 @@ const ContactSection = () => {
                 <div className="text-secondary text-xl mr-4 mt-1"><i className="fas fa-phone"></i></div>
                 <div>
                   <h4 className="font-bold text-neutral-dark mb-1">Phone & WhatsApp</h4>
-                  <p className="text-neutral-dark mb-1">+254 727 283 836</p>
+                  <a href="tel:+254727283836" className="text-primary hover:text-secondary transition mb-1 block">+254 727 283 836</a>
                   <p className="text-sm text-neutral-dark">Available 24/7 for urgent inquiries</p>
+                  <a href="https://wa.me/254727283836" target="_blank" rel="noopener noreferrer" className="mt-2 inline-flex items-center text-green-600 hover:text-green-700">
+                    <i className="fab fa-whatsapp mr-1"></i> Chat on WhatsApp
+                  </a>
                 </div>
               </div>
               
@@ -161,7 +164,7 @@ const ContactSection = () => {
                 <div className="text-secondary text-xl mr-4 mt-1"><i className="fas fa-envelope"></i></div>
                 <div>
                   <h4 className="font-bold text-neutral-dark mb-1">Email</h4>
-                  <p className="text-neutral-dark mb-1">paulmutukumuia@gmail.com</p>
+                  <a href="mailto:paulmutukumuia@gmail.com" className="text-primary hover:text-secondary transition mb-1 block">paulmutukumuia@gmail.com</a>
                   <p className="text-sm text-neutral-dark">We'll respond within 24 hours</p>
                 </div>
               </div>
