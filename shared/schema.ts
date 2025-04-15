@@ -1,4 +1,5 @@
 import { pgTable, text, serial, integer, boolean, jsonb, timestamp } from "drizzle-orm/pg-core";
+import { relations } from "drizzle-orm";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -46,8 +47,8 @@ export const users = pgTable("users", {
 // Booking table
 export const bookings = pgTable("bookings", {
   id: serial("id").primaryKey(),
-  propertyId: integer("property_id").notNull(),
-  userId: integer("user_id").notNull(),
+  propertyId: integer("property_id").notNull().references(() => properties.id),
+  userId: integer("user_id").notNull().references(() => users.id),
   checkin: text("checkin").notNull(),
   checkout: text("checkout").notNull(),
   guests: integer("guests").notNull(),
@@ -86,3 +87,23 @@ export type User = typeof users.$inferSelect;
 
 export type InsertBooking = z.infer<typeof insertBookingSchema>;
 export type Booking = typeof bookings.$inferSelect;
+
+// Define relations
+export const usersRelations = relations(users, ({ many }) => ({
+  bookings: many(bookings),
+}));
+
+export const propertiesRelations = relations(properties, ({ many }) => ({
+  bookings: many(bookings),
+}));
+
+export const bookingsRelations = relations(bookings, ({ one }) => ({
+  user: one(users, {
+    fields: [bookings.userId],
+    references: [users.id],
+  }),
+  property: one(properties, {
+    fields: [bookings.propertyId],
+    references: [properties.id],
+  }),
+}));

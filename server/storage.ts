@@ -150,4 +150,150 @@ export class MemStorage implements IStorage {
   }
 }
 
-export const storage = new MemStorage();
+// Use DatabaseStorage if needed
+// export const storage = new MemStorage();
+
+import { db } from "./db";
+import { eq } from "drizzle-orm";
+import { users, messages, bookings, properties } from "@shared/schema";
+
+// Database storage implementation
+export class DatabaseStorage implements IStorage {
+  async getUser(id: number): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.id, id));
+    return user || undefined;
+  }
+
+  async getUserByUsername(username: string): Promise<User | undefined> {
+    const [user] = await db.select().from(users).where(eq(users.username, username));
+    return user || undefined;
+  }
+
+  async createUser(insertUser: InsertUser): Promise<User> {
+    const [user] = await db
+      .insert(users)
+      .values(insertUser)
+      .returning();
+    return user;
+  }
+  
+  getAllProperties(): Property[] {
+    // For now, return the in-memory properties from the data file
+    const memStorage = new MemStorage();
+    return memStorage.getAllProperties();
+  }
+
+  getFeaturedProperties(): Property[] {
+    return this.getAllProperties()
+      .filter(property => property.featured)
+      .slice(0, 3);
+  }
+
+  getPropertyById(id: number): Property | undefined {
+    return this.getAllProperties().find(p => p.id === id);
+  }
+
+  getSimilarProperties(propertyId: number): Property[] {
+    const property = this.getPropertyById(propertyId);
+    if (!property) return [];
+
+    return this.getAllProperties()
+      .filter(p => {
+        if (p.id === propertyId) return false;
+        if (p.type === property.type) return true;
+        
+        if (p.location && property.location && 
+            typeof p.location === 'object' && typeof property.location === 'object' &&
+            'area' in p.location && 'area' in property.location) {
+          return p.location.area === property.location.area;
+        }
+        
+        return false;
+      })
+      .slice(0, 3);
+  }
+
+  async createMessage(messageData: Omit<InsertMessage, "createdAt">): Promise<Message> {
+    try {
+      const [message] = await db.insert(messages)
+        .values({
+          name: messageData.name,
+          email: messageData.email,
+          phone: messageData.phone || null, 
+          subject: messageData.subject,
+          message: messageData.message
+        })
+        .returning();
+      
+      return message;
+    } catch (err) {
+      console.error("Error saving message to database:", err);
+      // Return a placeholder message for now
+      return {
+        id: 0,
+        name: messageData.name,
+        email: messageData.email,
+        phone: messageData.phone || null,
+        subject: messageData.subject,
+        message: messageData.message,
+        createdAt: new Date()
+      };
+    }
+  }
+
+  async createBooking(bookingData: Omit<InsertBooking, "status" | "createdAt">): Promise<Booking> {
+    try {
+      const [booking] = await db.insert(bookings)
+        .values({
+          propertyId: bookingData.propertyId,
+          userId: bookingData.userId,
+          checkin: bookingData.checkin,
+          checkout: bookingData.checkout,
+          guests: bookingData.guests,
+          totalPrice: bookingData.totalPrice,
+          status: "pending"
+        })
+        .returning();
+      
+      return booking;
+    } catch (err) {
+      console.error("Error saving booking to database:", err);
+      // Return a placeholder booking for now
+      return {
+        id: 0,
+        ...bookingData,
+        status: "pending",
+        createdAt: new Date()
+      };
+    }
+  }
+
+  async getBookingsByUserId(userId: number): Promise<Booking[]> {
+    try {
+      const results = await db.select()
+        .from(bookings)
+        .where(eq(bookings.userId, userId));
+      
+      return results;
+    } catch (err) {
+      console.error("Error retrieving bookings by user:", err);
+      return [];
+    }
+  }
+
+  async getBookingsByPropertyId(propertyId: number): Promise<Booking[]> {
+    try {
+      const results = await db.select()
+        .from(bookings)
+        .where(eq(bookings.propertyId, propertyId));
+      
+      return results;
+    } catch (err) {
+      console.error("Error retrieving bookings by property:", err);
+      return [];
+    }
+  }
+}
+
+// Switch from MemStorage to DatabaseStorage
+export const storage = new DatabaseStorage();
